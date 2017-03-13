@@ -21,7 +21,6 @@ int main(){
     string filename="locations.txt";
     string placename, Lon, Lat;
     float lon, lat;
-
     ifs.open(filename); //open file
     char c = ifs.peek();
     int count = 0; //helper variable with duplicate keys
@@ -45,7 +44,8 @@ int main(){
             c = ifs.peek();
         }
     }
-
+    campus.erase(campus.begin());
+    campus.erase(campus.begin());
     //print contents of map    
     for (auto it = campus.begin(); it!=campus.end(); ++it)
         cout<<it->first << " => " << it->second.longitude << " " <<it->second.latitude<<'\n';
