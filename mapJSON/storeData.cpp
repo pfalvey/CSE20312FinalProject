@@ -44,6 +44,8 @@ int main(){
             c = ifs.peek();
         }
     }
+    //from testing, ifs.peek reads the endline character so the following
+    //two lines removes the empty next line keys from the map
     campus.erase(campus.begin());
     campus.erase(campus.begin());
     //print contents of map    
