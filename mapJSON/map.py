@@ -4,12 +4,12 @@ import unicodedata
 import requests
 import json
 
-r = requests.get('http://map.nd.edu/placemarks.js')
-jsonn = json.loads(r.text)
+r = requests.get('http://map.nd.edu/placemarks.js') #download website data
+jsonn = json.loads(r.text) #convert into json data
 children = []
 longitude = []
 latitude = []
-for i in jsonn: #read in json data
+for i in jsonn: #read in json data and add to lists
     children.append(i['placemark']['name'])
     longitude.append(i['placemark']['midpoint'][0])
     latitude.append(i['placemark']['midpoint'][1])
