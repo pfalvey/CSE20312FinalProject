@@ -1,0 +1,17 @@
+User interface guideline for run-path mapper:
+
+1. Prompt user for a starting point (this step is mandatory):
+		Take input string, search keys and place names using grep-style search
+		(Search individual words vs whole phrase?)
+		Prompt for confirm (if multiple matches, display matches, ask for KEY to confirm)
+2. Prompt for destination (this is optional; provide way to indicate none):
+		Do same confirmation for destination node
+3. Prompt for distance:
+		If destination is set, provide min. distance between points as minimum route distance.
+				Allow user to cancel at this point
+		Provide option to give desired distance (longer than min.)
+		Validate distance input, repeat prompt if necessary (nonnegative, numeric, etc)
+4. (Potentially allow user to choose different routes (similar to google maps))
+5. Display route:
+		Simple listing of nodes (i.e. start at fisher, then go to KC, then Basilica, then LaFun)
+		Special Cases: non-landmark paths (e.g. path around lakes, etc)
