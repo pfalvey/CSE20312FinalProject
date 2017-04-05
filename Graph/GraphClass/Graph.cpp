@@ -15,7 +15,7 @@ void Graph::print(){
   typedef boost::graph_traits<UndirectedGraph>::edge_iterator gi;
 	std::pair<gi, gi> ei = boost::edges(core);
 
-  std::cout <<"0:(start,end  weight)";
+  std::cout <<"0:(start,end  weight)\n";
   int i =0;
   for(gi edge_iter=ei.first; edge_iter!=ei.second; ++ edge_iter){
     std::cout<< ++i <<":( "<< boost::source(*edge_iter,core) <<","<< boost::target(*edge_iter,core) << "  "<< boost::get( boost::edge_weight_t(), core, *edge_iter ) << " )\n";

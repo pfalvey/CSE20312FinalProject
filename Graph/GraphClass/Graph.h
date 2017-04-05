@@ -10,9 +10,9 @@ class Graph{
 public:
   Graph();
   ~Graph();
-private:
-  UndirectedGraph core;
   void insert_edge(const int, const int, const int);
   void print();
+private:
+  UndirectedGraph core;
 };
 #endif
