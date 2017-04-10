@@ -5,10 +5,13 @@ Graph::Graph(){}
 
 Graph::~Graph(){}
 
+void Graph::insert_node( const int c ){
+  boost::add_vertex(c,  core);
+}
+
 void Graph::insert_edge(const int start, const int end, const int length){
   boost::add_edge(start,end,length,core);
 }
-
 
 
 void Graph::print(){

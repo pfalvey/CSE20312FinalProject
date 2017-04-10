@@ -10,6 +10,7 @@ class Graph{
 public:
   Graph();
   ~Graph();
+  void insert_node( const int * );
   void insert_edge(const int, const int, const int);
   void print();
 private:
