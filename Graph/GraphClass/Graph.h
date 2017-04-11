@@ -12,8 +12,12 @@ public:
   ~Graph();
   void insert_node( const int * );
   void insert_edge(const int, const int, const int);
+
+  int lookup( int );
+
   void print();
 private:
   UndirectedGraph core;
+  int size = 0;
 };
 #endif

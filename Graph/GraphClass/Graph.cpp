@@ -7,12 +7,19 @@ Graph::~Graph(){}
 
 void Graph::insert_node( const int c ){
   boost::add_vertex(c,  core);
+  ++size;
 }
 
 void Graph::insert_edge(const int start, const int end, const int length){
   boost::add_edge(start,end,length,core);
 }
 
+int Graph::lookup(int i){
+  if(i>=size){
+    return -1;
+  }
+  return vertex(i, core); //A number associated with a graph
+}
 
 void Graph::print(){
   typedef boost::graph_traits<UndirectedGraph>::edge_iterator gi;
