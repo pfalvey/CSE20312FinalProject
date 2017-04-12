@@ -1,23 +1,33 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "boost/graph/graph_traits.hpp"
-#include "boost/graph/adjacency_list.hpp"
 
-typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, boost::no_property,boost::property< boost::edge_weight_t, int >  > UndirectedGraph;
+#include <set>
+#include <pair>
+
+#include <vector>
+
+
+struct Node{
+  char * name;
+  std::pair<double,double> coords;
+  std::vector<  std::pair<Node*, double > > * adjacent;
+};
+
 
 class Graph{
 public:
   Graph();
   ~Graph();
-  void insert_node( const int * );
-  void insert_edge(const int, const int, const int);
 
-  int lookup( int );
+  insert();
+  insert( std::string, std::string, double, double );
 
-  void print();
+  Node * get( std::string );
+
+  
+
 private:
-  UndirectedGraph core;
-  int size = 0;
+  std::<set> nodes;
 };
 #endif
