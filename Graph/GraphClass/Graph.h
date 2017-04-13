@@ -2,16 +2,16 @@
 #define GRAPH_H
 
 
-#include <set>
-#include <pair>
-
+#include <map>
+#include <string>
 #include <vector>
 
+typedef int dist;
 
 struct Node{
-  char * name;
-  std::pair<double,double> coords;
-  std::vector<  std::pair<Node*, double > > * adjacent;
+  std::string name;
+  std::pair<dist,dist> coords;
+  std::vector<  std::pair<Node*, dist > > * adjacent;
 };
 
 
@@ -20,14 +20,11 @@ public:
   Graph();
   ~Graph();
 
-  insert();
-  insert( std::string, std::string, double, double );
+  void insert();
+  void insert( std::string, std::string, dist, dist );
 
   Node * get( std::string );
 
-  
-
-private:
-  std::<set> nodes;
+  std::map<std::string, Node*> nodes;
 };
 #endif

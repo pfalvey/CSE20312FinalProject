@@ -1,0 +1,33 @@
+#include "Graph.h"
+#include <iostream>
+
+Graph::Graph(){}
+
+Graph::~Graph(){}
+
+//insert standard info into a graph
+void Graph::insert(std::string key, std::string name, dist xcor, dist ycor){
+  Node n = Node() ;
+  n.name = name;
+  n.coords = std::pair<dist,dist>(xcor,ycor);
+  n.adjacent = &std::vector<Node*,dist>(); 
+}
+
+//generic insert
+void Graph::insert(){
+  insert("","",0,0);
+}
+
+Node * Graph::get( std::sting key ){
+
+}
+
+//gets beginning of node set for iteration
+Graph* begin(){
+
+}
+//get end of node set for iteration
+Graph* end(){
+
+}
+
