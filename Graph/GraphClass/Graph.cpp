@@ -21,7 +21,7 @@ void Graph::insert(){
 }
 
 Node * Graph::get( std::string key ){
-  if ( nodes[key] != NULL ){
+  if ( nodes[key] == NULL ){
     return NULL;
   }
   return nodes[key];
