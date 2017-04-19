@@ -7,10 +7,10 @@ all: $(EXEC)
 
 
 $(EXEC): main.cpp Graph.o
-	$(CC) $(CFLAGS) -o $@ -c main.cpp Graph.o
+	$(CC) $(CFLAGS) main.cpp Graph.o -o $@
 
 Graph.o: Graph.cpp Graph.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean:
