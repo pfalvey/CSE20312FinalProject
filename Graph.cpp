@@ -21,7 +21,7 @@ void Graph::insert(){
 }
 
 Node * Graph::get( std::string key ){
-  if ( nodes[key] == NULL ){
+  if ( nodes.count(key) < 1 ){
     return NULL;
   }
   return nodes[key];
