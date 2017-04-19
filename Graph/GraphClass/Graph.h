@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-typedef int dist;
+typedef double dist;
 
 struct Node{
   std::string name;
