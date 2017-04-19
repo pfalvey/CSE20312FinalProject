@@ -1,3 +1,5 @@
+# ignore our executable its current name is:
+map
 *.swp
 *.o
 .DS_Store
