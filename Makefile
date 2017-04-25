@@ -1,15 +1,17 @@
 CC=g++
 CFLAGS=-std=c++14 -Wall
-
+LD=g++
+LDFLAGS= -L.
 EXEC=map
+FUNCS=Graph. astar.
 
 all: $(EXEC)
 
 
-$(EXEC): main.cpp Graph.o
-	$(CC) $(CFLAGS) main.cpp Graph.o -o $@
+$(EXEC): main.cpp $(FUNCS:.=.o)
+	$(LD) $(LDFLAGS) main.cpp $(FUNCS:.=.o) -o $@
 
-Graph.o: Graph.cpp Graph.h
+%.o: %.cpp Graph.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
