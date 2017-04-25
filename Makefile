@@ -9,15 +9,15 @@ all: $(EXEC)
 
 
 $(EXEC): main.cpp $(FUNCS:.=.o)
+	@echo Linking $@...
 	$(LD) $(LDFLAGS) main.cpp $(FUNCS:.=.o) -o $@
 
 %.o: %.cpp Graph.h
+	@echo Compiling $@...
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean:
-	rm *.o
-	rm $(EXEC)
-
-
-
+	@echo Cleaning...
+	@rm -f *.o
+	@rm -f $(EXEC)
