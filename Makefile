@@ -6,16 +6,20 @@ EXEC=map
 all: $(EXEC)
 
 
-$(EXEC): main.cpp Graph.o
-	$(CC) $(CFLAGS) main.cpp Graph.o -o $@
+$(EXEC): main.cpp Graph.o astar.o
+	@echo Compiling $(EXEC)...
+	@$(CC) $(CFLAGS) $^ -o $@
 
 Graph.o: Graph.cpp Graph.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo Compiling $@...
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+astar.o: astar.cpp Graph.h
+	@echo Compiling $@...
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean:
-	rm *.o
-	rm $(EXEC)
-
-
-
+	@echo Cleaning...
+	@rm -f *.o
+	@rm -f $(EXEC)
