@@ -2,6 +2,10 @@
 #include <set>
 #include <cmath>
 
+// Only needed for debugging
+#include <list>
+#include <iostream>
+
 dist heuristic(Node * start, Node * end);
 
 dist Graph::astar(Node *start, Node *end) {
@@ -42,9 +46,25 @@ dist Graph::astar(Node *start, Node *end) {
 		}
 	}
 
+	//-----Compile and print path (debugging)-----
+	std::list<std::string> path;
+	Node * n = current;
+	while (n != start) {
+		path.push_front(n->name);
+		n = camefrom[n];
+	}
+	path.push_front(n->name);
+
+	for (auto it = path.begin(); it != path.end(); it++) {
+		std::cout << *it << std::endl;
+	}
+	std::cout << "Distance: " << path_dist[current] << " feet" << std::endl;
+	//-----End Debugging-----
+
 	return path_dist[current];
 }
 
+// Returns Cartesian distance between nodes using lat/long coordinates
 dist heuristic(Node * start, Node * end) {
 	dist heuristic = 0;
 	dist xdist =  std::abs(start->coords.first - end->coords.first);
@@ -52,8 +72,6 @@ dist heuristic(Node * start, Node * end) {
 	xdist *= LONG_TO_FEET;
 	ydist *= LAT_TO_FEET;
 	heuristic = std::sqrt(std::pow(xdist,2) + std::pow(ydist,2));
-
-
 
 	return heuristic;
 }

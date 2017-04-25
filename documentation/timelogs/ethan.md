@@ -6,4 +6,4 @@
 3/21: 11:00-12:00 -- wrote UI guidelines
 3/21: 1:00-3:00 -- researched Dijkstra's algorithm and A* search
 
-4/25: 9:30-11:45 -- wrote astar.cpp
+4/25: 9:30-12:00 -- wrote astar.cpp
