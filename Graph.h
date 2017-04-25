@@ -8,6 +8,9 @@
 
 typedef double dist;
 
+#define LAT_TO_FEET 364393.7354401166
+#define LONG_TO_FEET 273092.431579933 
+
 struct Node{
   std::string name;
   std::pair<dist,dist> coords;
