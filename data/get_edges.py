@@ -7,7 +7,7 @@ import requests
 import math
 
 cutoff_distance = 560           #every building within a 560 foot radius will be an edge. 
-#There will be edge cases (no pun intended) for buildings such as Carroll Hall, and those will be manually entered in.
+#There will be edge cases (no pun intended) for buildings with minimum edges of over 560 feet which will be handled by keeping track of the two shortest edges
 lat_to_feet = 364393.7354401166  #conversion from one degree of latitude to feet at Notre Dame
 long_to_feet = 273092.431579933    #conversion from one degree of longitude to feet at Notre Dame
 
@@ -23,6 +23,7 @@ for i in f1:
     f2 = open('locations.txt', 'r') #open another copy of locations.txt
     edges = [] #will store the edges for each building
     distance = [] #will store the distances of the edges for each building
+    #keep track of two shortest edges for "edge cases"
     shortest_dist_1 = 5280
     shortest_dist_2 = 5281
     shortest_name_1 = ""
@@ -40,6 +41,7 @@ for i in f1:
             name = j[0]
             edges.append(name)
             distance.append(dist)
+        #update shortest distance edges
         if dist < shortest_dist_1 and dist > 0:
             shortest_name_2 = shortest_name_1
             shortest_dist_2 = shortest_dist_1
@@ -48,8 +50,8 @@ for i in f1:
         elif dist < shortest_dist_2 and dist > 0:
             shortest_name_2 = j[0]
             shortest_dist_2 = dist
-        #write to the file edges.txt
-
+        
+    #make sure each building has at least two edges
     if len(edges) == 0:
         edges.append(shortest_name_1)
         distance.append(shortest_dist_1)
@@ -59,6 +61,7 @@ for i in f1:
         edges.append(shortest_name_2)
         distance.append(shortest_dist_2)
 
+    #write to file
     file.write(i[0] + "\n")
     file.write(str(len(edges)) + "\n")
     for temp1, temp2 in zip(edges, distance):
