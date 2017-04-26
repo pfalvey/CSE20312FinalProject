@@ -23,6 +23,10 @@ for i in f1:
     f2 = open('locations.txt', 'r') #open another copy of locations.txt
     edges = [] #will store the edges for each building
     distance = [] #will store the distances of the edges for each building
+    shortest_dist_1 = 5280
+    shortest_dist_2 = 5281
+    shortest_name_1 = ""
+    shortest_name_2 = ""
     for j in f2:
         j = j.strip() #formatting the line
         j = j.split(';')
@@ -36,7 +40,25 @@ for i in f1:
             name = j[0]
             edges.append(name)
             distance.append(dist)
+        if dist < shortest_dist_1 and dist > 0:
+            shortest_name_2 = shortest_name_1
+            shortest_dist_2 = shortest_dist_1
+            shortest_name_1 = j[0]
+            shortest_dist_1 = dist
+        elif dist < shortest_dist_2 and dist > 0:
+            shortest_name_2 = j[0]
+            shortest_dist_2 = dist
         #write to the file edges.txt
+
+    if len(edges) == 0:
+        edges.append(shortest_name_1)
+        distance.append(shortest_dist_1)
+        edges.append(shortest_name_2)
+        distance.append(shortest_dist_2)
+    elif len(edges) == 1:
+        edges.append(shortest_name_2)
+        distance.append(shortest_dist_2)
+
     file.write(i[0] + "\n")
     file.write(str(len(edges)) + "\n")
     for temp1, temp2 in zip(edges, distance):
