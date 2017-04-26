@@ -1,6 +1,10 @@
 #!/usr/bin/env python2.7
 
 #generates a text file of adjacent nodes and distances for the graph class
+#format of file for each building will be...
+#KEY   (name of building)
+#NUMBER_OF_EDGES
+#EDGE DISTANCE_TO_EDGE
 
 import json
 import requests
