@@ -27,6 +27,8 @@ public:
   void insert();
   void insert( std::string, std::string, dist, dist );
 
+  void addedges();
+
   dist astar( Node * start, Node * end );
   dist estar( Node * start, Node * end, dist distance );
 
