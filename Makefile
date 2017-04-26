@@ -18,6 +18,8 @@ $(EXEC): main.cpp $(FUNCS:.=.o)
 
 
 clean:
-	@echo Cleaning...
-	@rm -f *.o
-	@rm -f $(EXEC)
+	rm *.o
+	rm $(EXEC)
+
+
+

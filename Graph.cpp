@@ -22,9 +22,19 @@ void Graph::insert(){
   insert("","",0,0);
 }
 
-void Graph::addegdes(){
+void Graph::insert_edge(std::string a, std::string b, dist d ){
+  std::pair<Node*, dist> p; 
+  p.first = nodes[b];
+  p.second = d;
+  nodes[a]->adjacent->push_back( p );
+   
+  p.first = nodes[a];
+  nodes[b]->adjacent->push_back( p );
+}
+/*
+void Graph::addedges(){
     std::string filename = "data/edges.txt";
-    std::ifstream ifs(filenam );
+    std::ifstream ifs(filename );
     std::string line;
     while( std::getline( ifs, line ) ){
         if (line.compare("") == 0)
@@ -44,6 +54,8 @@ void Graph::addegdes(){
             //access current graph node and add this info to its edges vectors
 
 }
+*/
+
 
 Node * Graph::get( std::string key ){
   if ( nodes.count(key) < 1 ){
