@@ -42,6 +42,7 @@ void Graph::addedges(){
         }
         std::string key = line;
         std::getline( ifs, line );
+        std::cout << line << "\n";
         int num_edges = atof(line.c_str());
         for (int i = 0; i < num_edges; i++){
             std::getline( ifs, line );
@@ -50,6 +51,7 @@ void Graph::addedges(){
             std::string edge_Dist;
             ss>>edge_key;
             ss>>edge_Dist;
+            std::cout << edge_Dist << "\n";
             int edge_dist = atof(edge_Dist.c_str());
             //todo
             //access current graph node and add this info to its edges vectors
