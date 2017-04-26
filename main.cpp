@@ -13,9 +13,11 @@ void usage(int);
 
 int main(int argc, char ** argv){
   Graph g;
+  g.addedges();
   if( argc <2 ){
     usage(1);
   }
+
 
 return 0;
 }
