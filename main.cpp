@@ -14,15 +14,25 @@ void loadGraph( const char *, Graph * );
 
 
 int main(int argc, char ** argv){
-  Graph g;
-  loadGraph("data/locations.txt", &g);
-  g.addedges();
   if( argc <2 ){
     usage(1);
   }
 
+  //int pathlength = argv[1];
+  std::string startnodekey = argv[2];
+  std::string endnodekey = argv[3];
 
-return 0;
+  Graph g;
+  loadGraph("data/locations.txt", &g);
+  g.addedges();
+
+  Node * startnode = g.get(startnodekey);
+  Node * endnode = g.get(endnodekey);
+
+  g.astar(startnode, endnode);
+
+
+return EXIT_SUCCESS;
 }
 
 
@@ -44,7 +54,7 @@ void usage( int status ){
   std::cout <<"path_length:\tdistance you wish to traverse (in feet)\n";
   std::cout <<"start_point:\tpoint where path starts\n";
   std::cout <<"end_point:\tpoint where path ends\n";
-  std::cout <<"(OPTIONAL)middle_points:\tAny additional points to traverse through\n";
+  std::cout <<"middle_points:\t(OPTIONAL) Any additional points to traverse through\n";
   exit(status);
 }
 
