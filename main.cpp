@@ -28,6 +28,7 @@ int main(int argc, char ** argv){
 
   Node * startnode = g.get(startnodekey);
   Node * endnode = g.get(endnodekey);
+  if (!startnode || !endnode) usage(1);
 
   g.astar(startnode, endnode);
 
