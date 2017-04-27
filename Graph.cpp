@@ -5,7 +5,12 @@
 
 Graph::Graph(){}
 
-Graph::~Graph(){}
+Graph::~Graph(){
+  for (auto it = nodes.begin(); it != nodes.end(); it++) {
+    delete it->second->adjacent;
+    delete it->second;
+  }
+}
 
 //insert standard info into a graph
 void Graph::insert(std::string key, std::string name, dist xcor, dist ycor){
@@ -23,11 +28,11 @@ void Graph::insert(){
 }
 
 void Graph::insert_edge(std::string a, std::string b, dist d ){
-  std::pair<Node*, dist> p; 
+  std::pair<Node*, dist> p;
   p.first = nodes[b];
   p.second = d;
   nodes[a]->adjacent->push_back( p );
-   
+
   p.first = nodes[a];
   nodes[b]->adjacent->push_back( p );
 }
@@ -42,7 +47,7 @@ void Graph::addedges(){
         }
         std::string key = line;
         std::getline( ifs, line );
-        std::cout << line << "\n";
+        //std::cout << line << "\n";
         int num_edges = atof(line.c_str());
         for (int i = 0; i < num_edges; i++){
             std::getline( ifs, line );
@@ -51,7 +56,7 @@ void Graph::addedges(){
             std::string edge_Dist;
             ss>>edge_key;
             ss>>edge_Dist;
-            std::cout << edge_Dist << "\n";
+            //std::cout << edge_Dist << "\n";
             int edge_dist = atof(edge_Dist.c_str());
             //todo
             //access current graph node and add this info to its edges vectors
