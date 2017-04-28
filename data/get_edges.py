@@ -67,6 +67,9 @@ for i in f1:
 
     #write to file
     file.write(i[0] + "\n")
+    file.write(i[1] + "\n")
+    file.write(i[2] + "\n")
+    file.write(i[3] + "\n")
     file.write(str(len(edges)) + "\n")
     for temp1, temp2 in zip(edges, distance):
         file.write(temp1 + " " + str(temp2) + "\n")
