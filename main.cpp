@@ -62,6 +62,9 @@ void usage( int status ){
 /*
 load graph data from locations
 */
+
+
+/*
 void loadGraph( const char * fname, Graph * g ){
    std::ifstream f(fname);
    std::string ln;
@@ -90,4 +93,5 @@ void loadGraph( const char * fname, Graph * g ){
      g->insert( key, name, x, y );
    }
 
- }
+}
+*/

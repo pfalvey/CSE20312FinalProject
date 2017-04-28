@@ -10,11 +10,16 @@ typedef double dist;
 
 #define LAT_TO_FEET 364393.7354401166
 #define LONG_TO_FEET 273092.431579933 
-
+/*
+  name - actual name of building
+  coords - lat/lon coordinates
+  adjacent - list of edges from the node
+    node edges - pair of the other graphs KEY and edge wieght DISTANCE
+*/
 struct Node{
   std::string name;
   std::pair<dist,dist> coords;
-  std::vector<  std::pair<Node*, dist > > * adjacent;
+  std::vector<  std::pair<std::string , dist > > * adjacent;
 };
 
 

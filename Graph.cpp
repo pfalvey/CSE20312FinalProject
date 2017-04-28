@@ -17,7 +17,7 @@ void Graph::insert(std::string key, std::string name, dist xcor, dist ycor){
   Node * n = new Node ;
   n->name = name;
   n->coords = std::pair<dist,dist>(xcor,ycor);
-  n->adjacent = new std::vector< std::pair<Node*,dist> >;
+  n->adjacent = new std::vector< std::pair<std::string,dist> >;
 
   nodes[key] = n;
 }
@@ -28,12 +28,12 @@ void Graph::insert(){
 }
 
 void Graph::insert_edge(std::string a, std::string b, dist d ){
-  std::pair<Node*, dist> p;
-  p.first = nodes[b];
+  std::pair<std::string, dist> p;
+  p.first = b;
   p.second = d;
   nodes[a]->adjacent->push_back( p );
 
-  p.first = nodes[a];
+  p.first = a;
   nodes[b]->adjacent->push_back( p );
 }
 
