@@ -37,34 +37,6 @@ void Graph::insert_edge(std::string a, std::string b, dist d ){
   nodes[b]->adjacent->push_back( p );
 }
 
-void Graph::addedges(){
-    std::string filename = "data/edges.txt";
-    std::ifstream ifs(filename );
-    std::string line;
-    while( std::getline( ifs, line ) ){
-        if (line.compare("") == 0){
-            std::getline( ifs, line );
-        }
-        std::string key = line;
-        std::getline( ifs, line );
-        //std::cout << line << "\n";
-        int num_edges = atof(line.c_str());
-        for (int i = 0; i < num_edges; i++){
-            std::getline( ifs, line );
-            std::stringstream ss(line);
-            std::string edge_key;
-            std::string edge_Dist;
-            ss>>edge_key;
-            ss>>edge_Dist;
-            //std::cout << edge_Dist << "\n";
-            int edge_dist = atof(edge_Dist.c_str());
-            //todo
-            //access current graph node and add this info to its edges vectors
-            insert_edge( key, edge_key, edge_dist );
-        }
-    }
-}
-
 
 
 Node * Graph::get( std::string key ){

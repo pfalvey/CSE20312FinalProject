@@ -34,7 +34,6 @@ public:
 
   void insert_edge(std::string, std::string,dist);
 
-  void addedges();
 
   dist astar( Node * start, Node * end );
   dist estar( Node * start, Node * end, dist distance );
