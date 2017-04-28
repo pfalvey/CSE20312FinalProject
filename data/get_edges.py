@@ -9,11 +9,15 @@
 import json
 import requests
 import math
+import os
 
 cutoff_distance = 560           #every building within a 560 foot radius will be an edge. 
 #There will be edge cases (no pun intended) for buildings with minimum edges of over 560 feet which will be handled by keeping track of the two shortest edges
 lat_to_feet = 364393.7354401166  #conversion from one degree of latitude to feet at Notre Dame
 long_to_feet = 273092.431579933    #conversion from one degree of longitude to feet at Notre Dame
+
+
+
 
 #open existing file
 f1 = open('locations.txt', 'r')
