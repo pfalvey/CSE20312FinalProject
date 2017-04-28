@@ -31,10 +31,14 @@ void Graph::insert_edge(std::string a, std::string b, dist d ){
   std::pair<std::string, dist> p;
   p.first = b;
   p.second = d;
-  nodes[a]->adjacent->push_back( p );
+  if ( nodes.find(a) != nodes.end() ){
+    nodes[a]->adjacent->push_back( p );
+  }
 
   p.first = a;
-  nodes[b]->adjacent->push_back( p );
+  if ( nodes.find(b) != nodes.end() ){
+    nodes[b]->adjacent->push_back( p );
+  }
 }
 
 
