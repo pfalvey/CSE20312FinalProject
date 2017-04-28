@@ -9,3 +9,6 @@
 Total time: 6 hours, 38 Minutes
 
 4/25/17: 12:30pm-1:00pm work on get_edges.py
+         7:30pm-10:30pm work on get_edges.py and reading in edges.txt to Graph.cpp
+
+
