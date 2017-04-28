@@ -3,7 +3,7 @@ CFLAGS=-std=c++14 -Wall
 LD=g++
 LDFLAGS= -L.
 EXEC=map
-FUNCS=Graph. astar.
+FUNCS=Graph. astar. loadGraph.
 
 all: $(EXEC)
 
