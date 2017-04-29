@@ -5,6 +5,8 @@
 
 #include "Graph.h"
 
+#include <iostream>
+
 /*
 load graph data from locations
 */
@@ -23,17 +25,19 @@ void loadGraph( const char * fname, Graph * g ){
     std::string name = ln;
     //X coordinate
     std::getline( f, ln );
-    dist x = atof( ln.c_str() );    
+    dist x = atof( ln.c_str() );
     //Y coordinate
     std::getline( f, ln );
-    dist y = atof( ln.c_str() );    
+    dist y = atof( ln.c_str() );
 
     //add this new node
     g->insert(key,name,x,y);
 
-    //find extra nodes and add them
+    // add edges
     int i;
-    f >> i;
+    std::getline(f,ln);
+    i = atoi(ln.c_str());
+
     for(int a =0; a < i; ++a){
       std::getline(f, ln);
       std::stringstream ss(ln);
@@ -41,17 +45,11 @@ void loadGraph( const char * fname, Graph * g ){
       std::string edge_Dist;
       ss>>edge_key;
       ss>>edge_Dist;
-      
+
       int edge_dist = atof(edge_Dist.c_str());
-    
+
       g->insert_edge(key,edge_key,edge_dist);
     }
   }
 
 }
-
-
-
-
-
-
