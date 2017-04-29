@@ -23,7 +23,7 @@ int main(int argc, char ** argv){
   std::string endnodekey = argv[3];
 
   Graph g;
-  loadGraph("data/locations.txt", &g);
+  loadGraph("data/edges.txt", &g);
 
   Node * startnode = g.get(startnodekey);
   Node * endnode = g.get(endnodekey);
@@ -57,10 +57,3 @@ void usage( int status ){
   std::cout <<"middle_points:\t(OPTIONAL) Any additional points to traverse through\n";
   exit(status);
 }
-
-
-
-
-
-
-
