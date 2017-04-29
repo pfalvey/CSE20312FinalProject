@@ -25,10 +25,10 @@ void loadGraph( const char * fname, Graph * g ){
     std::string name = ln;
     //X coordinate
     std::getline( f, ln );
-    dist x = atof( ln.c_str() );
+    dist y = atof( ln.c_str() );
     //Y coordinate
     std::getline( f, ln );
-    dist y = atof( ln.c_str() );
+    dist x = atof( ln.c_str() );
 
     //add this new node
     g->insert(key,name,x,y);
