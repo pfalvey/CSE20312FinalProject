@@ -5,45 +5,49 @@
 // Only needed for debugging
 #include <list>
 #include <iostream>
+#include <unistd.h>
 
 dist heuristic(Node * start, Node * end);
 
 dist Graph::astar(Node *start, Node *end) {
 	std::map<Node *, dist> openset = {}; // value == path_dist+heuristic
 	openset[start] = heuristic(start,end);
-	auto min_openset = openset.begin(); // map entry with lowest value
+	Node * min_openset = openset.begin()->first; // map entry with lowest value
 
-	std::map<Node *, dist> closedset = {};
-	std::map<Node *, Node *> camefrom = {};
-	std::map<Node *, dist> path_dist = {};
+	std::map<Node *, dist> closedset = {}; // nodes already explored
+	std::map<Node *, Node *> camefrom = {}; // stores the last node in the path for each node explored
+	std::map<Node *, dist> path_dist = {}; // stores distance from start node to each explored node
 	path_dist[start] = 0;
 
 	Node * current = nullptr;
 
 	while(openset.size() > 0) {
-		current = min_openset->first;
-		dist current_dist = min_openset->second;
+		current = min_openset;
+		dist current_dist = openset[min_openset];
 		if (current == end) break;
 
 		openset.erase(current);
 		closedset[current] = current_dist;
 
 		for (auto neighbor = current->adjacent->begin(); neighbor != current->adjacent->end(); neighbor++) {
-			if (closedset.count(neighbor->first) > 0) continue;
+			if (closedset.count(nodes[neighbor->first]) > 0) continue;
 
 			dist new_path_dist = path_dist[current] + neighbor->second;
-			if (openset.count(neighbor->first) == 0) //neighbor is not in openset
-				openset[neighbor->first] = 0; //add neighbor to openset
-			else if (new_path_dist >= path_dist[neighbor->first]) continue; //longer, redundant path
+			if (openset.count(nodes[neighbor->first]) == 0) //neighbor is not in openset
+				openset[nodes[neighbor->first]] = 0; //add neighbor to openset
+			else if (new_path_dist >= path_dist[nodes[neighbor->first]]) continue; //longer, redundant path
 
-			path_dist[neighbor->first] = new_path_dist;
-			openset[neighbor->first] = new_path_dist + heuristic(neighbor->first, end);
-			camefrom[neighbor->first] = current;
-
-			//update min_openset
-			if (openset[neighbor->first] < min_openset->second)
-				min_openset = openset.find(neighbor->first);
+			path_dist[nodes[neighbor->first]] = new_path_dist;
+			openset[nodes[neighbor->first]] = new_path_dist + heuristic(nodes[neighbor->first], end);
+			camefrom[nodes[neighbor->first]] = current;
 		}
+
+		// Update min_openset
+		min_openset = openset.begin()->first;
+		for (auto it = openset.begin(); it != openset.end(); it++) {
+			if (it->second < openset[min_openset]) min_openset = it->first;
+		}
+
 	}
 
 	//-----Compile and print path (debugging)-----
@@ -72,6 +76,5 @@ dist heuristic(Node * start, Node * end) {
 	xdist *= LONG_TO_FEET;
 	ydist *= LAT_TO_FEET;
 	heuristic = std::sqrt(std::pow(xdist,2) + std::pow(ydist,2));
-
 	return heuristic;
 }
