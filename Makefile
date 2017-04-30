@@ -3,7 +3,7 @@ CFLAGS=-std=c++14 -Wall
 LD=g++
 LDFLAGS= -L.
 EXEC=map
-FUNCS=Graph. astar. loadGraph.
+FUNCS=Graph. astar. loadGraph. estar.
 
 all: $(EXEC)
 
@@ -18,8 +18,5 @@ $(EXEC): main.cpp $(FUNCS:.=.o)
 
 
 clean:
-	rm *.o
-	rm $(EXEC)
-
-
-
+	rm -f *.o
+	rm -f $(EXEC)

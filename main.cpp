@@ -18,7 +18,7 @@ int main(int argc, char ** argv){
     usage(1);
   }
 
-  //int pathlength = argv[1];
+  dist pathlength = atof(argv[1]);
   std::string startnodekey = argv[2];
   std::string endnodekey = argv[3];
 
@@ -29,7 +29,7 @@ int main(int argc, char ** argv){
   Node * endnode = g.get(endnodekey);
   if (!startnode || !endnode) usage(1);
 
-  g.astar(startnode, endnode);
+  g.estar(startnode, endnode, pathlength);
 
 
 return EXIT_SUCCESS;
