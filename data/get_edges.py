@@ -47,7 +47,6 @@ for i in f1:
     placeURL.strip()
     r1 = urllib.urlopen(placeURL)
     jsonn = json.loads(r1.read())
-    print jsonn
     placeID1= jsonn['results'][0]['place_id']
     for j in f2:
         j = j.strip() #formatting the line
