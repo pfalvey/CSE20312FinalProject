@@ -42,6 +42,10 @@ for i in f1:
     shortest_dist_2 = 5281
     shortest_name_1 = ""
     shortest_name_2 = ""
+    shortest_lat_1 = ""
+    shortest_lat_2 = ""
+    shortest_long_1 = ""
+    shortest_long_2 = ""
     #get PlaceID from google api
     placeURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(i[2],i[3],placeKey)
     placeURL.strip()
@@ -83,21 +87,95 @@ for i in f1:
         if dist < shortest_dist_1 and dist > 0:
             shortest_name_2 = shortest_name_1
             shortest_dist_2 = shortest_dist_1
+            shortest_lat_2 = shortest_lat_1
+            shortest_long_2 = shortest_long_1
             shortest_name_1 = j[0]
             shortest_dist_1 = dist
+            shortest_lat_1 = j[2]
+            shortest_long_1 = j[3]
         elif dist < shortest_dist_2 and dist > 0:
             shortest_name_2 = j[0]
             shortest_dist_2 = dist
+            shortest_lat_2 = j[2]
+            shortest_long_2 = j[3]
         
     #make sure each building has at least two edges
     if len(edges) == 0:
         edges.append(shortest_name_1)
-        distance.append(shortest_dist_1)
         edges.append(shortest_name_2)
-        distance.append(shortest_dist_2)
+        #get building place ID andactual distance from google maps api for shortest dist 1
+        placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(shortest_lat_1,shortest_long_1,placeKey)
+        placeURL2.strip()
+        r2 = urllib.urlopen(placeURL2)
+        jsonn2 = json.loads(r2.read())
+        placeID2 = jsonn2['results'][0]['place_id']
+        mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
+        mapURL.strip()
+        r3 = urllib.urlopen(mapURL)
+        jsonn3 = json.loads(r3.read())
+        newdist = jsonn3['rows'][0]['elements'][0]['distance']['value']
+        newdist = float(newdist)
+        newdist = newdist * 3
+        if newdist > 0:
+            distance.append(newdist)
+        else:
+            distance.append(shortest_dist_1)  
+
+        #get building place ID andactual distance from google maps api for shortest dist 2
+        placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(shortest_lat_2,shortest_long_2,placeKey)
+        placeURL2.strip()
+        r2 = urllib.urlopen(placeURL2)
+        jsonn2 = json.loads(r2.read())
+        placeID2 = jsonn2['results'][0]['place_id']
+        mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
+        mapURL.strip()
+        r3 = urllib.urlopen(mapURL)
+        jsonn3 = json.loads(r3.read())
+        newdist = jsonn3['rows'][0]['elements'][0]['distance']['value']
+        newdist = float(newdist)
+        newdist = newdist * 3
+        if newdist > 0:
+            distance.append(newdist)
+        else:
+            distance.append(shortest_dist_2)
+
     elif len(edges) == 1:
         edges.append(shortest_name_2)
-        distance.append(shortest_dist_2)
+
+        #get building place ID andactual distance from google maps api for shortest dist 2
+        placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(shortest_lat_2,shortest_long_2,placeKey)
+        placeURL2.strip()
+        r2 = urllib.urlopen(placeURL2)
+        jsonn2 = json.loads(r2.read())
+        placeID2 = jsonn2['results'][0]['place_id']
+        mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
+        mapURL.strip()
+        r3 = urllib.urlopen(mapURL)
+        jsonn3 = json.loads(r3.read())
+        newdist = jsonn3['rows'][0]['elements'][0]['distance']['value']
+        newdist = float(newdist)
+        newdist = newdist * 3
+        if newdist > 0:
+            distance.append(newdist)
+        else:
+            distance.append(shortest_dist_2)
+        #get building place ID andactual distance from google maps api for shortest dist 1
+        placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(shortest_lat_1,shortest_long_1,placeKey)
+        placeURL2.strip()
+        r2 = urllib.urlopen(placeURL2)
+        jsonn2 = json.loads(r2.read())
+        placeID2 = jsonn2['results'][0]['place_id']
+        mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
+        mapURL.strip()
+        r3 = urllib.urlopen(mapURL)
+        jsonn3 = json.loads(r3.read())
+        newdist = jsonn3['rows'][0]['elements'][0]['distance']['value']
+        newdist = float(newdist)
+        newdist = newdist * 3
+        if newdist > 0:
+            distance[0] = newdist
+        else:
+            distance[0] = shortest_dist_2
 
     #write to file
     file.write(i[0] + "\n")
