@@ -5,6 +5,8 @@
 #KEY   (name of building)
 #NUMBER_OF_EDGES
 #EDGE DISTANCE_TO_EDGE
+#uses latitude and longitude to determine if buildings should be edges
+#uses the google maps api to determine the actual walking distance between edges
 
 import json
 import math
@@ -42,16 +44,17 @@ for i in f1:
     shortest_dist_2 = 5281
     shortest_name_1 = ""
     shortest_name_2 = ""
-    shortest_lat_1 = ""
+    shortest_lat_1 = "" #keep track of latitude and longitude for google maps functionality
     shortest_lat_2 = ""
     shortest_long_1 = ""
     shortest_long_2 = ""
-    #get PlaceID from google api
+    #get PlaceID from google maps api
     placeURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(i[2],i[3],placeKey)
     placeURL.strip()
     r1 = urllib.urlopen(placeURL)
     jsonn = json.loads(r1.read())
     placeID1= jsonn['results'][0]['place_id']
+    #parse through every node to check for possible edges
     for j in f2:
         j = j.strip() #formatting the line
         j = j.split(';')
@@ -66,7 +69,7 @@ for i in f1:
         if dist < cutoff_distance and dist > 0:
             name = j[0]
             edges.append(name)
-            #get building place ID andactual distance from google maps api
+            #get building place ID and actual distance from google maps api
             placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(j[2],j[3],placeKey)
             placeURL2.strip()
             r2 = urllib.urlopen(placeURL2)
@@ -79,7 +82,9 @@ for i in f1:
             newdist = jsonn3['rows'][0]['elements'][0]['distance']['value']
             newdist = float(newdist)
             newdist = newdist * 3
-            if newdist > 0:
+            #sometimes, actual distance will be too close for google maps to register it, so google will say it's zero
+            #if this is the case, we will use the latitude and longitude to calculate the distance
+            if newdist > 0:                 
                 distance.append(newdist)
             else:
                 distance.append(dist)
