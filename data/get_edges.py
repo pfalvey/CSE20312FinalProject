@@ -18,8 +18,8 @@ long_to_feet = 273092.431579933    #conversion from one degree of longitude to f
 
 
 #google maps api keys are stored on the Notre Dame network and can only be accessed on the Notre Dame network. This is for safety/privacy
-placeKeyFile = open('/afs/nd.edu/user36/pfalvey/Public/cse20312project/key1', 'r')
-mapKeyFile = open('/afs/nd.edu/user36/pfalvey/Public/cse20312project/key2', 'r')
+placeKeyFile = open('/afs/nd.edu/user36/pfalvey/Public/cse20312project/key3', 'r') #can use /key1 or /key3 if either surpass their daily request quota
+mapKeyFile = open('/afs/nd.edu/user36/pfalvey/Public/cse20312project/key4', 'r') #can use /key2 or /key4 if either surpass their daily request quota
 placeKey = placeKeyFile.readline()
 mapKey = mapKeyFile.readline()
 
@@ -43,12 +43,12 @@ for i in f1:
     shortest_name_1 = ""
     shortest_name_2 = ""
     #get PlaceID from google api
-    """placeURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(i[2],i[3],placeKey)
+    placeURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(i[2],i[3],placeKey)
     placeURL.strip()
     r1 = urllib.urlopen(placeURL)
     jsonn = json.loads(r1.read())
     print jsonn
-    placeID1= jsonn['results'][0]['place_id']"""
+    placeID1= jsonn['results'][0]['place_id']
     for j in f2:
         j = j.strip() #formatting the line
         j = j.split(';')
@@ -64,13 +64,12 @@ for i in f1:
             name = j[0]
             edges.append(name)
             #get building place ID andactual distance from google maps api
-            """    placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(j[2],j[3],placeKey)
+            placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(j[2],j[3],placeKey)
             placeURL2.strip()
             r2 = urllib.urlopen(placeURL2)
             jsonn2 = json.loads(r2.read())
-            print i[0], j[0]
-            placeID2 = jsonn2['results'][0]['place_id']"""
-            """      mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
+            placeID2 = jsonn2['results'][0]['place_id']
+            mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
             mapURL.strip()
             r3 = urllib.urlopen(mapURL)
             jsonn3 = json.loads(r3.read())
@@ -80,8 +79,7 @@ for i in f1:
             if newdist > 0:
                 distance.append(newdist)
             else:
-                distance.append(dist)"""
-            distance.append(dist) #delete this line when google api works
+                distance.append(dist)
         #update shortest distance edges
         if dist < shortest_dist_1 and dist > 0:
             shortest_name_2 = shortest_name_1
@@ -112,5 +110,3 @@ for i in f1:
         file.write(temp1 + " " + str(temp2) + "\n")
     if i[0] != "ZAHM": #add newline except for the end
         file.write("\n")
-
-        
