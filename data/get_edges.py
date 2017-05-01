@@ -56,20 +56,20 @@ for i in f1:
         x2 = float(j[2]) * lat_to_feet
         y1 = float(i[3]) * long_to_feet
         y2 = float(j[3]) * long_to_feet
-        #get building place ID from google maps api
-        """    placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(j[2],j[3],placeKey)
-        placeURL2.strip()
-        r2 = urllib.urlopen(placeURL2)
-        jsonn2 = json.loads(r2.read())
-        print i[0], j[0]
-        placeID2 = jsonn2['results'][0]['place_id']"""
+
 
         #find distance and compare to cutoff distance
         dist = math.hypot(float(x2) - float(x1), float(y2) - float(y1))
         if dist < cutoff_distance and dist > 0:
             name = j[0]
             edges.append(name)
-            #get actual distance from google maps api
+            #get building place ID andactual distance from google maps api
+            """    placeURL2 = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}".format(j[2],j[3],placeKey)
+            placeURL2.strip()
+            r2 = urllib.urlopen(placeURL2)
+            jsonn2 = json.loads(r2.read())
+            print i[0], j[0]
+            placeID2 = jsonn2['results'][0]['place_id']"""
             """      mapURL="https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:{}&destinations=place_id:{}&mode=walking&units=imperial&key={}".format(placeID1, placeID2, mapKey)
             mapURL.strip()
             r3 = urllib.urlopen(mapURL)
