@@ -9,7 +9,7 @@
 
 dist heuristic(Node * start, Node * end);
 
-dist Graph::astar(Node *start, Node *end) {
+dist Graph::astar(Node *start, Node *end, bool print) {
 	std::map<Node *, dist> openset = {}; // value == path_dist+heuristic
 	openset[start] = heuristic(start,end);
 	Node * min_openset = openset.begin()->first; // map entry with lowest value
@@ -50,20 +50,21 @@ dist Graph::astar(Node *start, Node *end) {
 
 	}
 
-	//-----Compile and print path (debugging)-----
-	std::list<std::string> path;
-	Node * n = current;
-	while (n != start) {
+	// Print result if print==true
+	if (print) {
+		std::list<std::string> path;
+		Node * n = current;
+		while (n != start) {
+			path.push_front(n->name);
+			n = camefrom[n];
+		}
 		path.push_front(n->name);
-		n = camefrom[n];
-	}
-	path.push_front(n->name);
 
-	for (auto it = path.begin(); it != path.end(); it++) {
-		std::cout << *it << std::endl;
+		for (auto it = path.begin(); it != path.end(); it++) {
+			std::cout << *it << std::endl;
+		}
+		std::cout << "Distance: " << path_dist[current] << " feet" << std::endl;
 	}
-	std::cout << "Distance: " << path_dist[current] << " feet" << std::endl;
-	//-----End Debugging-----
 
 	return path_dist[current];
 }
