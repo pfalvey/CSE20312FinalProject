@@ -29,7 +29,7 @@ int main(int argc, char ** argv){
   Node * endnode = g.get(endnodekey);
   if (!startnode || !endnode) usage(1);
 
-  g.estar(startnode, endnode, pathlength);
+  g.tvsida_star(startnode, endnode, pathlength);
 
 
 return EXIT_SUCCESS;
