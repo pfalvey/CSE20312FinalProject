@@ -66,7 +66,7 @@ path tvsida_recursive(Graph &g, Node * current, Node * end, dist nodecost, dist 
 		possible.second.push_front(current);
 		if (possible.first < 0) continue; //Error on path
 		possible.first += it->second;
-		if (*possible.second.end() == end) {
+		if (*(--possible.second.end()) == end) {
 			if (best.first == 0) best = possible; //first valid path
 			else if (std::abs(nodecost + possible.first - bound) < std::abs(nodecost + best.first - bound)) best = possible;
 		}
