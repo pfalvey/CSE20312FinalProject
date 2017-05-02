@@ -12,7 +12,7 @@ typedef std::pair<dist, std::list<Node *> > path;
 
 extern dist heuristic(Node* current, Node * end);
 dist tvs_heuristic(std::map<Node*, dist> &, Node * start, dist target);
-path tvsida_recursive(Graph &g, Node * current, Node * end, dist nodecost, dist target);
+path tvsida_recursive(Graph &g, path workingpath, Node * current, Node * end, dist nodecost, dist target);
 
 dist Graph::tvsida_star(Node *start, Node *end, dist target) {
 	dist min_distance = astar(start, end, false);
@@ -25,7 +25,8 @@ dist Graph::tvsida_star(Node *start, Node *end, dist target) {
 	best.first = 0;
 	dist bound = target;
 	while (std::abs(bound-target) < std::abs(best.first-target)) {
-		path current = tvsida_recursive(*this, start, end, 0, bound);
+		path workingpath;
+		path current = tvsida_recursive(*this, workingpath, start, end, 0, bound);
 		if (current.first < 0) {
 			std::cout << "Error: Path not found" << std::endl;
 			return EXIT_FAILURE;
@@ -45,32 +46,40 @@ dist Graph::tvsida_star(Node *start, Node *end, dist target) {
 	return best.first;
 }
 
-path tvsida_recursive(Graph &g, Node * current, Node * end, dist nodecost, dist bound) {
-	path best;
-	best.first = 0;
+path tvsida_recursive(Graph &g, path workingpath, Node * current, Node * end, dist nodecost, dist bound) {
+	for (auto it = workingpath.second.begin(); it != workingpath.second.end(); it++) {
+		if (*it == current) return workingpath; //node already visited
+	}
 
 	if (nodecost + heuristic(current, end) > bound) {
 		// Node is beyond search bound
-		best.first = -1; //negative distance -> error code
-		return best;
+		workingpath.first = -1;
+		return workingpath;
 	}
 
+	workingpath.second.push_back(current);
+
 	if (current == end) { //goal reached
-		best.second.push_front(current);
-		return best;
+		return workingpath;
 	}
 
 	for (auto it = current->adjacent->begin(); it != current->adjacent->end(); it++) {
 		Node * neighbor = g.get(it->first);
-		path possible = tvsida_recursive(g, neighbor, end, nodecost+it->second, bound);
-		possible.second.push_front(current);
-		if (possible.first < 0) continue; //Error on path
+
+		bool visited = false;
+		for (auto it = workingpath.second.begin(); it != workingpath.second.end(); it++) {
+			if (*it == neighbor) visited = true; //check if neighbor is already in path
+		}
+		if (visited) continue;
+
+		path possible = tvsida_recursive(g, workingpath, neighbor, end, nodecost+it->second, bound);
+		if (possible.first < 0) continue; //Error on path, or node not added
 		possible.first += it->second;
 		if (*(--possible.second.end()) == end) {
-			if (best.first == 0) best = possible; //first valid path
-			else if (std::abs(nodecost + possible.first - bound) < std::abs(nodecost + best.first - bound)) best = possible;
+			if (workingpath.first == nodecost) workingpath = possible; //first valid path
+			else if (std::abs(nodecost + possible.first - bound) < std::abs(nodecost + workingpath.first - bound)) workingpath = possible;
 		}
 
 	}
-	return best;
+	return workingpath;
 }
