@@ -8,3 +8,7 @@
 
 4/25: 9:30-12:00 -- wrote astar.cpp
 4/27: 4:00-5:40 -- tested astar.cpp
+4/29: 6:00-7:30, 8:00-8:45 -- Debugged loadGraph, astar
+4/2: 9:00-1:15 -- wrote tvsida_star.cpp
+
+Total: 14:40
