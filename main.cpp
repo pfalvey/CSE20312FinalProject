@@ -50,7 +50,7 @@ void parseFlags(){
 Display usage and exit with the given status
 */
 void usage( int status ){
-  std::cout <<"USAGE:\n\tmap path_length start_point [middle_points] end_point\n\n";
+  std::cout <<"USAGE:\n\tmap <path_length> <start_point> <end_point>\n\n";
   std::cout <<"path_length:\tdistance you wish to traverse (in feet)\n";
   std::cout <<"start_point:\tpoint where path starts\n";
   std::cout <<"end_point:\tpoint where path ends\n";
