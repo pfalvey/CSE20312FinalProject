@@ -12,46 +12,60 @@ Main + i/o for map application
 #include "Graph.h"
 
 void usage(int);
-void list(int);
 void loadGraph( const char *, Graph * );
 
 
 int main(int argc, char ** argv){
-  //parse command line arguments
-  if( argc <2 || argc >4){
-    usage(1);
-  }
-  std::string help;
-  std::string startnodekey;
-  std::string endnodekey;
-  dist pathlength;
-  if (argc == 2){
-      help = argv[1];
-  }
-  if (argc == 3){
-      usage(1);
-  }
-  if (argc == 4){
-    pathlength = atof(argv[1]);
-    startnodekey = argv[2];
-    endnodekey = argv[3];
-  }
-
-  if (argc == 2 && (help.compare("--help") == 0 || help.compare("-h") == 0))
-      usage(0);
-  else if (argc == 2 && (help.compare("--list") == 0 || help.compare("-l") == 0))
-      list(0);
-  else if (argc == 2)
-      usage(1);
-
   //build graph
   Graph g;
   loadGraph("data/edges.txt", &g);
 
-  Node * startnode = g.get(startnodekey);
-  Node * endnode = g.get(endnodekey);
-  if (!startnode || !endnode) usage(1);
+  //parse command line arguments
+  if( argc <2 || argc >4){
+    usage(EXIT_FAILURE);
+  }
+  std::string help;
+  std::string startnodekey;
+  std::string endnodekey;
+  dist pathlength = 0;
+  Node * startnode = nullptr;
+  Node * endnode = nullptr;
 
+  /* Parse command line arguments */
+  int argind = 1;
+  while (argind < argc && strlen(argv[argind]) > 1 && argv[argind][0] == '-') {
+    char *arg = argv[argind++];
+    if (strcmp(arg,"-h") == 0 || strcmp(arg,"--help") == 0) {
+      usage(EXIT_SUCCESS);
+    } else if (strcmp(arg, "-l") == 0 || strcmp(arg, "--list") == 0) {
+      g.nodedump();
+      return EXIT_SUCCESS;
+    } else usage(EXIT_FAILURE);
+  }
+
+  if (argc > argind) {
+    startnodekey = argv[argind++];
+    startnode = g.get(startnodekey);
+    if (!startnode) {
+      std::cout << "ERROR: " << startnodekey << " does not exist" << std::endl;
+      usage(EXIT_FAILURE);
+    }
+  }
+
+  if (argc > argind) {
+    endnodekey = argv[argind++];
+    endnode = g.get(endnodekey);
+    if (!endnode) {
+      std::cout << "ERROR: " << endnodekey << " does not exist" << std::endl;
+      usage(EXIT_FAILURE);
+    }
+  }
+
+  if (argc > argind) {
+    pathlength = atof(argv[argind]);
+  }
+
+  // Run graph traversal
   g.tvsida_star(startnode, endnode, pathlength);
 
 
@@ -64,26 +78,9 @@ return EXIT_SUCCESS;
 Display usage and exit with the given status
 */
 void usage( int status ){
-  std::cout <<"USAGE:\n\tmap [-l | --list] [-h | --help]  <path_length> <start_point> <end_point>\n\n";
-  std::cout <<"path_length:\tdistance you wish to traverse (in feet)\n";
+  std::cout <<"USAGE:\n\tmap [-l | --list] [-h | --help]  <start_point> <end_point> <path_length> \n\n";
   std::cout <<"start_point:\tpoint where path starts\n";
   std::cout <<"end_point:\tpoint where path ends\n";
-  exit(status);
-}
-
-/*
-Display list and exit with the given status
-*/
-void list( int status ){
-  std::ifstream ifs;
-  ifs.open("data/locations.txt");
-  std::string input;
-  while(std::getline(ifs, input)){
-    std::stringstream output;
-    output<<input;
-    getline(output, input, ';');
-    std::cout<<input<<std::endl;
-  }
-
+  std::cout <<"path_length:\tdistance you wish to traverse (in feet)\n";
   exit(status);
 }

@@ -50,6 +50,12 @@ Node * Graph::get( std::string key ){
   return nodes[key];
 }
 
+void Graph::nodedump() {
+  for (auto it = nodes.begin(); it != nodes.end(); it++) {
+    std::cout << it->first << std::endl;
+  }
+}
+
 
 //Overloaded operator for set insertion
 bool operator<(const Node n1, const Node n2){

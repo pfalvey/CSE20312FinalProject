@@ -33,6 +33,7 @@ public:
   void insert( std::string, std::string, dist, dist );
 
   void insert_edge(std::string, std::string,dist);
+  void nodedump();
 
 
   dist astar( Node * start, Node * end, bool print );
