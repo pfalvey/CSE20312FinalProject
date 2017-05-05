@@ -1,6 +1,10 @@
-/* Implementation of Target-Value Search, Iterative Deepening A*
+/* 
+ * Implementation of Target-Value Search, Iterative Deepening A*
  * Algorithm based on Lopez, Stern and Felner:
  * http://www.ijcai.org/Proceedings/13/Papers/096.pdf
+ * Finds path between two nodes closest to target length, and prints result
+ * Uses tvsida_recurisve helper function, as well as heuristic() defined in
+ * astar.cpp
  */
 
 #include "Graph.h"
@@ -11,9 +15,9 @@
 typedef std::pair<dist, std::list<Node *> > path;
 
 extern dist heuristic(Node* current, Node * end);
-dist tvs_heuristic(std::map<Node*, dist> &, Node * start, dist target);
 path tvsida_recursive(Graph &g, path workingpath, Node * current, Node * end, dist nodecost, dist target);
 
+// Implements TVS-IDA* algorithm
 dist Graph::tvsida_star(Node *start, Node *end, dist target) {
 	dist min_distance = astar(start, end, false);
 	if (min_distance >= target) {
@@ -46,6 +50,7 @@ dist Graph::tvsida_star(Node *start, Node *end, dist target) {
 	return best.first;
 }
 
+// Recursive helper function for Graph::tvsida_star
 path tvsida_recursive(Graph &g, path workingpath, Node * current, Node * end, dist nodecost, dist bound) {
 	for (auto it = workingpath.second.begin(); it != workingpath.second.end(); it++) {
 		if (*it == current) return workingpath; //node already visited

@@ -1,11 +1,14 @@
-#include "Graph.h"
-#include <set>
-#include <cmath>
+/* astar.cpp
+ * Includes Graph::astar member function which uses the A* graph search
+ * algorithm to find the shortest path between two nodes and optionally print
+ * path. Also includes heuristic helper function.
+ * Based on pseudocode from en.wikipedia.com/wiki/A*_search_algorithm
+ */
 
-// Only needed for debugging
+#include "Graph.h"
+#include <cmath>
 #include <list>
 #include <iostream>
-#include <unistd.h>
 
 dist heuristic(Node * start, Node * end);
 
@@ -24,11 +27,12 @@ dist Graph::astar(Node *start, Node *end, bool print) {
 	while(openset.size() > 0) {
 		current = min_openset;
 		dist current_dist = openset[min_openset];
-		if (current == end) break;
+		if (current == end) break; // goal reached
 
 		openset.erase(current);
 		closedset[current] = current_dist;
 
+		// Iterate through current's neighbors
 		for (auto neighbor = current->adjacent->begin(); neighbor != current->adjacent->end(); neighbor++) {
 			if (closedset.count(nodes[neighbor->first]) > 0) continue;
 

@@ -8,8 +8,11 @@
 
 typedef double dist;
 
+// Conversion factors from degrees latitude/longitude to feet
+// Only valid at area around Notre Dame
 #define LAT_TO_FEET 364393.7354401166
 #define LONG_TO_FEET 273092.431579933
+
 /*
   name - actual name of building
   coords - lat/lon coordinates
@@ -31,10 +34,9 @@ public:
   void buildgraph( std::string filename );
   void insert();
   void insert( std::string, std::string, dist, dist );
-
   void insert_edge(std::string, std::string,dist);
-  void nodedump();
 
+  void nodedump(); // Print all node keys
 
   dist astar( Node * start, Node * end, bool print );
   dist tvsida_star( Node * start, Node * end, dist distance );

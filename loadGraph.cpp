@@ -1,11 +1,13 @@
+/*
+ * loadGraph.cpp: defines loadGraph function to read in graph data from file
+ * and add it to a graph object.
+ */
+
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <stdlib.h>
 
 #include "Graph.h"
-
-#include <iostream>
 
 /*
 load graph data from locations

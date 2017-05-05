@@ -1,13 +1,10 @@
 /*
-Main + i/o for map application
-*/
+ * main.cpp: main() function, which instantiates Graph object, parses command
+ * line arguments, and calls Graph::tvsida_star().
+ */
 
 #include <iostream>
-#include <stdlib.h>
-#include <fstream>
 #include <string>
-#include <sstream>
-
 
 #include "Graph.h"
 
@@ -20,10 +17,10 @@ int main(int argc, char ** argv){
   Graph g;
   loadGraph("data/edges.txt", &g);
 
-  //parse command line arguments
   if( argc <2 || argc >4){
     usage(EXIT_FAILURE);
   }
+
   std::string help;
   std::string startnodekey;
   std::string endnodekey;
@@ -65,7 +62,7 @@ int main(int argc, char ** argv){
     pathlength = atof(argv[argind]);
   }
 
-  // Run graph traversal
+  /* Run graph traversal */
   g.tvsida_star(startnode, endnode, pathlength);
 
 
@@ -75,8 +72,8 @@ return EXIT_SUCCESS;
 
 
 /*
-Display usage and exit with the given status
-*/
+ * Display usage and exit with the given status
+ */
 void usage( int status ){
   std::cout <<"USAGE:\n\tmap [-l | --list] [-h | --help]  <start_point> <end_point> <path_length> \n\n";
   std::cout <<"start_point:\tpoint where path starts\n";
