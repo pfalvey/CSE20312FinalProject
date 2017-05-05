@@ -5,7 +5,8 @@
 
 #include <iostream>
 #include <string>
-
+#include <cstdlib>
+#include <cstring>
 #include "Graph.h"
 
 void usage(int);
@@ -25,8 +26,8 @@ int main(int argc, char ** argv){
   std::string startnodekey;
   std::string endnodekey;
   dist pathlength = 0;
-  Node * startnode = nullptr;
-  Node * endnode = nullptr;
+  Node * startnode = NULL;
+  Node * endnode = NULL;
 
   /* Parse command line arguments */
   int argind = 1;
