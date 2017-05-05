@@ -10,13 +10,14 @@ all: $(EXEC)
 
 $(EXEC): main.cpp $(FUNCS:.=.o)
 	@echo Linking $@...
-	$(LD) $(LDFLAGS) main.cpp $(FUNCS:.=.o) -o $@
+	@$(LD) $(LDFLAGS) main.cpp $(FUNCS:.=.o) -o $@
 
 %.o: %.cpp Graph.h
 	@echo Compiling $@...
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean:
-	rm -f *.o
-	rm -f $(EXEC)
+	@echo Cleaning...
+	@rm -f *.o
+	@rm -f $(EXEC)
